@@ -32,6 +32,9 @@ def readchat(resp):
 
 while True:
     resp = twitchchat.recv(2048).decode('utf-8')
+    if resp.startswith('PING'):
+        twichchat.send("PONG\n".encode('utf-8'))
+        
     if len(resp) > 0:
         message = readchat(resp)
         print(resp)
