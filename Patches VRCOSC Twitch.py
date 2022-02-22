@@ -33,7 +33,7 @@ def readchat(resp):
 while True:
     resp = twitchchat.recv(2048).decode('utf-8')
     if resp.startswith('PING'):
-        twichchat.send("PONG\n".encode('utf-8'))
+        twitchchat.send("PONG\n".encode('utf-8'))
         
     if len(resp) > 0:
         message = readchat(resp)
@@ -44,9 +44,15 @@ while True:
             if(message.startswith('!')):
                #This is where the fun begins.
                 if(message == '!love'):
-                   client_osc.send_message("/avatar/parameters/love",1)
+                   client_osc.send_message("/avatar/parameters/love",int(1))
                    #100ms delay to ensure message has been sent
                    time.sleep(0.1)
-                   client_osc.send_message("/avatar/parameters/love",0)
+                   client_osc.send_message("/avatar/parameters/love",int(0))
+
+                if(message == '!pet'):
+                   client_osc.send_message("/avatar/parameters/love",int(2))
+                   #100ms delay to ensure message has been sent
+                   time.sleep(0.1)
+                   client_osc.send_message("/avatar/parameters/love",int(0))    
         except Exception as e:
             print("This message lacks a command.")
